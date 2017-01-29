@@ -428,12 +428,34 @@ private:
  */
 class Speller {
 public:
-    explicit Speller(const string input) {
+    enum SpellingLanguage {
+        EN=1, ID
+    };
+
+public:
+
+    /**
+     * @brief Speller
+     * @param input
+     * @param language
+     * construct the Speller to spell 'input' in the given 'language'
+     */
+    explicit Speller(const string input, const SpellingLanguage language) {
         this->input = input;
+        this->language = language;
 
         isAbleToWork = false;
 
         this->validate();
+    }
+
+    /**
+     * @brief Speller
+     * @param input
+     * convenience constructor using EN by default
+     */
+    explicit Speller(const string input) {
+        Speller(input, EN);
     }
 
     /**
@@ -459,33 +481,46 @@ public:
      */
     string process(){
 
+        // make sure ready
         if ( !ready() ) return "unable to proceed!";
 
+        // the final output
         string textualForm;
 
+        // group the string by three chars each
         vector<string> triples = group();
 
+        // setting the language to use
+        Number* number;
+        switch (language) {
+        case EN:
+            number = new EnglishNumber();
+            break;
 
-//        EnglishNumber number;
-        BahasaNumber number;
+        case ID:
+            number = new BahasaNumber();
+            break;
 
-        if ( input == "0" ) return number.lang()->base().at(0);
-
-        for (unsigned int i=0; i<triples.size(); ++i) {
-
-            unitStack.push( number.lang()->units().at(i) );
-
+        default:
+            number = new EnglishNumber();
         }
 
+        // shortcut for '0'
+        if ( input == "0" ) return number->lang()->base().at(0);
+
+        // create the stack of unit to use
+        for (unsigned int i=0; i<triples.size(); ++i) {
+            unitStack.push( number->lang()->units().at(i) );
+        }
+
+        // translate each triple
         for (unsigned int i=0; i<triples.size(); ++i ) {
 
             string triple = triples.at(i);
 
-            number.setValue( toNumber(triple) );
+            number->setValue( toNumber(triple) );
 
-
-            Number* base = &number;
-            string translated = base->translate();
+            string translated = number->translate();
 
             if ( !translated.empty() ) {
                 textualForm
@@ -493,7 +528,7 @@ public:
                         .append( unitStack.top().empty() ? "" : " " )
                         .append( unitStack.top() );
 
-                number.revise(textualForm);
+                number->revise(textualForm);
 
                 textualForm.append( ", " );
             }
@@ -505,10 +540,21 @@ public:
         int idx = textualForm.find_last_of(", ");
         textualForm.replace(idx-1, 2, "");
 
+        // done
         return textualForm;
     }
 
-// utilities
+    /**
+     * @brief setLanguage
+     * @param language
+     * set the language to use
+     */
+    void setLanguage(const SpellingLanguage language) {
+        this->language = language;
+    }
+
+
+// utilities    
 private:
     /**
      * @brief validate
@@ -609,6 +655,8 @@ private:
      * collection of units of number in the language
      */
     stack<string> unitStack;
+
+    SpellingLanguage language;
 };
 
 // =========================================================================
@@ -630,10 +678,10 @@ int main(int argc, char* argv[])
         string input = argv[1];
 
         // bussiness
-        Speller robot(input);
+        Speller robot(input, Speller::EN);
+
         if ( robot.ready() ) {
             string output = robot.process();
-            //cout << "\'" << output << "\'" << endl;
             cout << output << endl;
 
         } else {
