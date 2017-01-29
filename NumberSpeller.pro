@@ -6,9 +6,11 @@ CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS -= -std=c++0x
 
-SOURCES += main.cpp \
-    proceduralway.cpp
+SOURCES += main.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
+
+DISTFILES += \
+    sample
 

@@ -41,9 +41,9 @@ public:
  * @brief The Eng class
  * Example implementation of English language
  */
-class Eng: public Language {
+class English: public Language {
 public:
-    Eng() : Language()
+    English() : Language()
     {}
 
     vector<string> base() {
@@ -131,13 +131,13 @@ protected:
  * @brief The EngNumber class
  * A Number which translate its value into English word.
  */
-class EngNumber : public Number {
+class EnglishNumber : public Number {
 public:
 
-    explicit EngNumber() : Number()
+    explicit EnglishNumber() : Number()
     {}
 
-    explicit EngNumber(const int integer) :
+    explicit EnglishNumber(const int integer) :
     Number(integer) {}
 
     string translate() {
@@ -171,7 +171,7 @@ public:
 
 // utilities
 private:
-    Eng conf = Eng();
+    English conf = English();
 
     string toBase(const int value) {
         return conf.base().at(value);
@@ -302,7 +302,7 @@ public:
         vector<string> triples = group();
 
 
-        EngNumber number;
+        EnglishNumber number;
 
         for (unsigned int i=0; i<triples.size(); ++i) {
 

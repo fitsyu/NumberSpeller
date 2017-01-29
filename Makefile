@@ -48,11 +48,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = main.cpp \
-		proceduralway.cpp 
-OBJECTS       = main.o \
-		proceduralway.o
-DIST          = /opt/Qt5.5.0/5.5/gcc_64/mkspecs/features/spec_pre.prf \
+SOURCES       = main.cpp 
+OBJECTS       = main.o
+DIST          = sample \
+		/opt/Qt5.5.0/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.5.0/5.5/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt5.5.0/5.5/gcc_64/mkspecs/common/linux.conf \
 		/opt/Qt5.5.0/5.5/gcc_64/mkspecs/common/sanitize.conf \
@@ -178,8 +177,7 @@ DIST          = /opt/Qt5.5.0/5.5/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.5.0/5.5/gcc_64/mkspecs/features/exceptions.prf \
 		/opt/Qt5.5.0/5.5/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt5.5.0/5.5/gcc_64/mkspecs/features/lex.prf \
-		NumberSpeller.pro  main.cpp \
-		proceduralway.cpp
+		NumberSpeller.pro  main.cpp
 QMAKE_TARGET  = NumberSpeller
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = NumberSpeller
@@ -507,9 +505,6 @@ compiler_clean:
 
 main.o: main.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
-
-proceduralway.o: proceduralway.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o proceduralway.o proceduralway.cpp
 
 ####### Install
 
