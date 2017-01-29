@@ -6,13 +6,51 @@
 
 using namespace std;
 
+struct Eng {
+    static vector<string> units;
+    static vector<string> base;
+    static unordered_map<string, string> replacements;
+
+
+    static string O;
+    static string OO;
+    static string OOO;
+};
+
+string Eng::O     = "teen";
+string Eng::OO    = "ty";
+string Eng::OOO   = "hundred";
+
+vector<string> Eng::units { "", "thousand", "million", "billion" };
+
+// basic names of numbers
+vector<string> Eng::base { "zero", "one", "two", "three", "four",
+                      "five", "six", "seven", "eight", "nine" };
+
+// also known as convention
+unordered_map<string, string> Eng::replacements {
+    // teens
+    {"teen","ten"},
+    {"oneteen","eleven"},
+    {"twoteen", "twelve"},
+    {"threeteen", "thirteen"},
+    {"fiveteen", "fifteen"},
+
+    // tens
+    {"onety", "ten"},
+    {"twoty", "twenty"},
+    {"threety", "thirty"},
+    {"fourty", "forty"},
+    {"fivety", "fifty"},
+    {"eightty", "eighty"}
+};
+
 class Number {
 public:
     explicit Number(const int integer) {
         this->value = integer;
     }
 
-    // delegator
     string translate() {
 
         if ( value == 0 )
@@ -30,15 +68,22 @@ public:
 
 // utilities
 private:
-    string toBase(int value) {
-        return base.at(value);
+    string toBase(const int value) {
+        return Eng::base.at(value);
     }
 
-    string toTeen(int value) {
+    string toTeen(const int value) {
         int lastDigit = value % 10;
-        string output = toBase(lastDigit) + "teen";
 
-        try { output = corrections.at(output); }
+        // don't spell zero
+        string output = "";
+        if ( lastDigit > 0 ) {
+            output = toBase(lastDigit);
+        }
+
+        output += Eng::O;
+
+        try { output = Eng::replacements.at(output); }
         catch (out_of_range) {}
 
         return output;
@@ -49,14 +94,17 @@ private:
 
         // first digit
         firstDigit = value / 10;
-        string output = toBase(firstDigit) + "ty";
+        string output = toBase(firstDigit) + Eng::OO;
 
-        try { output = corrections.at(output); }
+        try { output = Eng::replacements.at(output); }
         catch (out_of_range) {}
 
         // last digit
         lastDigit = value % 10;
-        string lastDigitSpell = toBase(lastDigit);
+        string lastDigitSpell = "";
+        if ( lastDigit > 0 ) {
+           lastDigitSpell = toBase(lastDigit);
+        }
 
         return output + ( lastDigitSpell == "" ? "" : "-" + lastDigitSpell );
     }
@@ -81,7 +129,7 @@ private:
 
     string dealWithThreeNumbers(int num) {
         const int firstDigit = num / 100;
-        string output = toBase(firstDigit) + " hundred";
+        string output = toBase(firstDigit) + " " + Eng::OOO;
 
         const int theLastTwo = num % 100;
         string output2 = dealWithTwoNumbers(theLastTwo);
@@ -93,32 +141,10 @@ private:
 private:
     int value;
 
-    // basic names of numbers
-    vector<string> base { "", "one", "two", "three", "four",
-                          "five", "six", "seven", "eight", "nine" };
-
-    // also known as convention
-    unordered_map<string, string> corrections {
-        // teens
-        {"teen","ten"},
-        {"oneteen","eleven"},
-        {"twoteen", "twelve"},
-        {"threeteen", "thirteen"},
-        {"fiveteen", "fifteen"},
-
-        // tens
-        {"onety", "ten"},
-        {"twoty", "twenty"},
-        {"threety", "thirty"},
-        {"fourty", "forty"},
-        {"fivety", "fifty"},
-        {"eightty", "eighty"}
-    };
 };
 
 class Speller {
 public:
-
     explicit Speller(const string input) {
         this->input = input;
 
@@ -127,14 +153,13 @@ public:
         this->validate();
     }
 
-
     bool ready() {
         return isAbleToWork;
     }
 
     string process(){
 
-        if (input == "0") return "zero";
+        if (input == "0") return Eng::base.at(0);
 
         string textualForm;
 
@@ -142,7 +167,7 @@ public:
 
 
         for (unsigned int i=0; i<triples.size(); ++i) {
-            unitStack.push(units.at(i));
+            unitStack.push( Eng::units.at(i) );
         }
 
         for (unsigned int i=0; i<triples.size(); ++i ) {
@@ -154,13 +179,11 @@ public:
             string translated = number.translate();
 
             if ( !translated.empty() ) {
-
                 textualForm
                         .append( translated )
                         .append( unitStack.top().empty() ? "" : " " )
                         .append( unitStack.top() )
                         .append( ", " );
-
             }
 
             unitStack.pop();
@@ -172,8 +195,6 @@ public:
 
         return textualForm;
     }
-
-
 
 private:
 
@@ -193,19 +214,6 @@ private:
             }
         }
         return true;
-    }
-
-
-    int toNumber() {
-        if (isValid()) {
-            try {
-                return stoi(input);
-            } catch (out_of_range) {
-                cout << "out of range" << endl;
-                return -1;
-            }
-        }
-        return -1;
     }
 
     int toNumber(const string num) {
@@ -251,9 +259,6 @@ private:
     bool isAbleToWork;
 
     stack<string> unitStack;
-
-    vector<string> units { "", "thousand", "million", "billion" };
-
 };
 
 // =========================================================================
@@ -283,7 +288,6 @@ int main(int argc, char* argv[])
         }
 
     } else {
-        // print usage
         printUsage();
     }
 
