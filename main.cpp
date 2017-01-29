@@ -92,6 +92,47 @@ private:
 };
 
 
+class Bahasa: public Language {
+public:
+    Bahasa() : Language() {}
+
+    vector<string> base() {
+        return _base;
+    }
+
+    vector<string> units() {
+        return _units;
+    }
+
+    unordered_map<string, string> replacements() {
+        return _replacements;
+    }
+
+    const string O     = "belas";
+    const string OO    = "puluh";
+    const string OOO   = "ratus";
+
+private:
+    // basic names of numbers
+    vector<string> _base { "nol", "satu", "dua", "tiga", "empat",
+                          "lima", "enam", "tujuh", "delapan", "sembilan" };
+
+    // units of numbers
+    vector<string> _units { "", "ribu", "juta", "milyar" };
+
+
+    // also known as convention
+    unordered_map<string, string> _replacements {
+        {" belas","sepuluh"},
+        {"satu belas","sebelas"},
+
+        {"satu ratus", "seratus"},
+        {"satu ribu", "seribu"},
+
+    };
+
+};
+
 
 /**
  * @brief The Number class
@@ -122,6 +163,17 @@ public:
 
     virtual Language* lang() = 0;
 
+    void setValue(const int value) {
+        this->value = value;
+    }
+
+    void revise(string &probablyWrong) {
+        try {
+            probablyWrong = lang()->replacements().at(probablyWrong);
+        }
+        catch (out_of_range) {}
+    }
+
 protected:
     int value;
 };
@@ -142,18 +194,13 @@ public:
 
     string translate() {
 
-        if ( value == 0 )
-            return "zero";
-
-        // up to this point 0 still spelled
-        // past this point 0 is ignored
-
         if ( value <  100 ) {
-            return dealWithTwoNumbers(value);
+            return dealWithTens(value);
         }
         else if ( value < 1000 ) {
-            return dealWithThreeNumbers(value);
-        } else {
+            return dealWithHundreds(value);
+        }
+        else {
             return "unknown";
         }
     }
@@ -162,16 +209,8 @@ public:
         return &conf;
     }
 
-    void setValue(const int value) {
-        this->value = value;
-    }
-
-
-
-
 // utilities
 private:
-    English conf = English();
 
     string toBase(const int value) {
         return conf.base().at(value);
@@ -188,8 +227,7 @@ private:
 
         output += conf.O;
 
-        try { output = conf.replacements().at(output); }
-        catch (out_of_range) {}
+        revise(output);
 
         return output;
     }
@@ -201,8 +239,7 @@ private:
         firstDigit = value / 10;
         string output = toBase(firstDigit) + conf.OO;
 
-        try { output = conf.replacements().at(output); }
-        catch (out_of_range) {}
+        revise(output);
 
         // last digit
         lastDigit = value % 10;
@@ -214,7 +251,7 @@ private:
         return output + ( lastDigitSpell == "" ? "" : "-" + lastDigitSpell );
     }
 
-    string dealWithTwoNumbers(int num) {
+    string dealWithTens(int num) {
         if ( num == 00 ) {
             return "";
         }
@@ -232,18 +269,144 @@ private:
         return "unknown";
     }
 
-    string dealWithThreeNumbers(int num) {
+    string dealWithHundreds(int num) {
+        if ( num == 000 ) {
+            return "";
+        }
+
         const int firstDigit = num / 100;
         string output = toBase(firstDigit) + " " + conf.OOO;
 
         const int theLastTwo = num % 100;
-        string output2 = dealWithTwoNumbers(theLastTwo);
+        string output2 = dealWithTens(theLastTwo);
 
         return output + ( output2.empty() ? "" : " and " + output2 );
     }
 
+
+private:
+    English conf = English();
 };
 
+class BahasaNumber: public Number {
+public:
+    explicit BahasaNumber() : Number() {}
+
+    explicit BahasaNumber(const int integer) :
+        Number(integer) {}
+
+    string translate() {
+
+        string output;
+
+        if ( value <  100 ) {
+            output = dealWithTens(value);
+        }
+        else if ( value < 1000 ) {
+            output = dealWithHundreds(value);
+        } else {
+            output = "unknown";
+        }
+
+        return output;
+    }
+
+    Language* lang() {
+        return &conf;
+    }
+
+
+
+private:
+
+    string toBase(const int value) {
+        return conf.base().at(value);
+    }
+
+    string toTeen(const int value) {
+        int lastDigit = value % 10;
+
+        // don't spell zero
+        string output = "";
+        if ( lastDigit > 0 ) {
+            output = toBase(lastDigit);
+        }
+
+        output += " " + conf.O;
+
+        revise(output);
+
+        return output;
+    }
+
+    string toTens(int value) {
+        int firstDigit, lastDigit;
+
+        // first digit
+        firstDigit = value / 10;
+        string output = toBase(firstDigit) + " " + conf.OO;
+
+        revise(output);
+
+        // last digit
+        lastDigit = value % 10;
+        string lastDigitSpell = "";
+        if ( lastDigit > 0 ) {
+           lastDigitSpell = toBase(lastDigit);
+        }
+
+        output += ( lastDigitSpell == "" ? "" : " " + lastDigitSpell );
+
+        revise(output);
+
+        return output;
+    }
+
+    string dealWithTens(int num) {
+        if ( num == 00 ) {
+            return "";
+        }
+        else if ( num < 10 ) {
+            return toBase(num);
+        }
+        else if ( num < 20 ) {
+            return toTeen(num);
+        }
+        else if ( num < 100 ) {
+            return toTens(num);
+        }
+
+
+        return "unknown";
+    }
+
+    string dealWithHundreds(int num) {
+        const int firstDigit = num / 100;
+        string output = toBase(firstDigit) + " " + conf.OOO;
+
+        revise(output);
+
+        const int theLastTwo = num % 100;
+        string output2 = dealWithTens(theLastTwo);
+
+        output += ( output2.empty() ? "" : " " + output2 );
+
+        revise(output);
+
+
+
+
+        return output;
+    }
+
+
+
+
+
+private:
+    Bahasa conf = Bahasa();
+
+};
 
 
 
@@ -302,7 +465,10 @@ public:
         vector<string> triples = group();
 
 
-        EnglishNumber number;
+//        EnglishNumber number;
+        BahasaNumber number;
+
+        if ( input == "0" ) return number.lang()->base().at(0);
 
         for (unsigned int i=0; i<triples.size(); ++i) {
 
@@ -324,8 +490,11 @@ public:
                 textualForm
                         .append( translated )
                         .append( unitStack.top().empty() ? "" : " " )
-                        .append( unitStack.top() )
-                        .append( ", " );
+                        .append( unitStack.top() );
+
+                number.revise(textualForm);
+
+                textualForm.append( ", " );
             }
 
             unitStack.pop();
@@ -460,7 +629,9 @@ int main(int argc, char* argv[])
         Speller robot(input);
         if ( robot.ready() ) {
             string output = robot.process();
+            //cout << "\'" << output << "\'" << endl;
             cout << output << endl;
+
         } else {
             cout << "invalid input!" << endl;
             printUsage();
