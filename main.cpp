@@ -206,14 +206,14 @@ public:
     }
 
     Language* lang() {
-        return &conf;
+        return &language;
     }
 
 // utilities
 private:
 
     string toBase(const int value) {
-        return conf.base().at(value);
+        return language.base().at(value);
     }
 
     string toTeen(const int value) {
@@ -225,7 +225,7 @@ private:
             output = toBase(lastDigit);
         }
 
-        output += conf.O;
+        output += language.O;
 
         revise(output);
 
@@ -237,7 +237,7 @@ private:
 
         // first digit
         firstDigit = value / 10;
-        string output = toBase(firstDigit) + conf.OO;
+        string output = toBase(firstDigit) + language.OO;
 
         revise(output);
 
@@ -275,7 +275,7 @@ private:
         }
 
         const int firstDigit = num / 100;
-        string output = toBase(firstDigit) + " " + conf.OOO;
+        string output = toBase(firstDigit) + " " + language.OOO;
 
         const int theLastTwo = num % 100;
         string output2 = dealWithTens(theLastTwo);
@@ -285,7 +285,7 @@ private:
 
 
 private:
-    English conf = English();
+    English language = English();
 };
 
 class BahasaNumber: public Number {
@@ -312,15 +312,13 @@ public:
     }
 
     Language* lang() {
-        return &conf;
+        return &bahasa;
     }
-
-
 
 private:
 
     string toBase(const int value) {
-        return conf.base().at(value);
+        return bahasa.base().at(value);
     }
 
     string toTeen(const int value) {
@@ -332,7 +330,7 @@ private:
             output = toBase(lastDigit);
         }
 
-        output += " " + conf.O;
+        output += " " + bahasa.O;
 
         revise(output);
 
@@ -344,7 +342,7 @@ private:
 
         // first digit
         firstDigit = value / 10;
-        string output = toBase(firstDigit) + " " + conf.OO;
+        string output = toBase(firstDigit) + " " + bahasa.OO;
 
         revise(output);
 
@@ -382,7 +380,7 @@ private:
 
     string dealWithHundreds(int num) {
         const int firstDigit = num / 100;
-        string output = toBase(firstDigit) + " " + conf.OOO;
+        string output = toBase(firstDigit) + " " + bahasa.OOO;
 
         revise(output);
 
@@ -399,12 +397,8 @@ private:
         return output;
     }
 
-
-
-
-
 private:
-    Bahasa conf = Bahasa();
+    Bahasa bahasa = Bahasa();
 
 };
 
