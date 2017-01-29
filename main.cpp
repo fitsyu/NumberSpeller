@@ -79,6 +79,7 @@ private:
         {"twoteen", "twelve"},
         {"threeteen", "thirteen"},
         {"fiveteen", "fifteen"},
+        {"eightteen", "eighteen"},
 
         // tens
         {"onety", "ten"},
