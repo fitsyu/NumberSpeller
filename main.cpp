@@ -91,7 +91,10 @@ private:
 
 };
 
-
+/**
+ * @brief The Bahasa class
+ * Example implementation of Bahasa Indonesia
+ */
 class Bahasa: public Language {
 public:
     Bahasa() : Language() {}
@@ -288,6 +291,10 @@ private:
     English language = English();
 };
 
+/**
+ * @brief The BahasaNumber class
+ * A Number which translate its value into Bahasa.
+ */
 class BahasaNumber: public Number {
 public:
     explicit BahasaNumber() : Number() {}
@@ -607,10 +614,13 @@ private:
 // =========================================================================
 
 void printUsage() {
+
+    const string programName = program_invocation_short_name;
+
     cout
-            << "usage: NumberSpeller [n]" << endl
+            << "usage: " << programName << " [n]" << endl
             << "n: positive number from 0 to maximum of 999999999999" << endl
-            << "example: NumberSpeller 2300" << endl;
+            << "example: " << programName << " 2300" << endl;
 }
 
 int main(int argc, char* argv[])
