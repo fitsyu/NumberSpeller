@@ -6,55 +6,147 @@
 
 using namespace std;
 
-struct Eng {
-    static vector<string> units;
-    static vector<string> base;
-    static unordered_map<string, string> replacements;
+/**
+ * @brief The Language class
+ * Base of all supported language
+ * In order to support certain language into the system, one has to
+ * provide:
+ * - the basic names for basic number from 0 to 9
+ *   e.g zero, one, two, three..
+ *
+ * - list of unit number for each 3 digits.
+ *   e.g thousand, million, billion, ..
+ *   note: must be started from thousand-equivalent
+ *
+ * - replacements dictionary.
+ *   each language has its own rule and there are always exceptions to
+ *   that rule.
+ *   for example: obeying the rule, one would spell 12 as 'twoteen'.
+ *   using exception, 12 then becomes 'twelve'.
+ *
+ */
+class Language {
+public:
+    Language(){}
 
+    virtual vector<string> base() = 0;
 
-    static string O;
-    static string OO;
-    static string OOO;
+    virtual vector<string> units() = 0;
+
+    virtual unordered_map<string, string> replacements() = 0;
 };
 
-string Eng::O     = "teen";
-string Eng::OO    = "ty";
-string Eng::OOO   = "hundred";
 
-vector<string> Eng::units { "", "thousand", "million", "billion" };
+/**
+ * @brief The Eng class
+ * Example implementation of English language
+ */
+class Eng: public Language {
+public:
+    Eng() : Language()
+    {}
 
-// basic names of numbers
-vector<string> Eng::base { "zero", "one", "two", "three", "four",
-                      "five", "six", "seven", "eight", "nine" };
+    vector<string> base() {
+        return _base;
+    }
 
-// also known as convention
-unordered_map<string, string> Eng::replacements {
-    // teens
-    {"teen","ten"},
-    {"oneteen","eleven"},
-    {"twoteen", "twelve"},
-    {"threeteen", "thirteen"},
-    {"fiveteen", "fifteen"},
+    vector<string> units() {
+        return _units;
+    }
 
-    // tens
-    {"onety", "ten"},
-    {"twoty", "twenty"},
-    {"threety", "thirty"},
-    {"fourty", "forty"},
-    {"fivety", "fifty"},
-    {"eightty", "eighty"}
+    unordered_map<string, string> replacements() {
+        return _replacements;
+    }
+
+    const string O     = "teen";
+    const string OO    = "ty";
+    const string OOO   = "hundred";
+
+private:
+    // basic names of numbers
+    vector<string> _base { "zero", "one", "two", "three", "four",
+                          "five", "six", "seven", "eight", "nine" };
+
+    // units of numbers
+    vector<string> _units { "", "thousand", "million", "billion" };
+
+
+    // also known as convention
+    unordered_map<string, string> _replacements {
+        // teens
+        {"teen","ten"},
+        {"oneteen","eleven"},
+        {"twoteen", "twelve"},
+        {"threeteen", "thirteen"},
+        {"fiveteen", "fifteen"},
+
+        // tens
+        {"onety", "ten"},
+        {"twoty", "twenty"},
+        {"threety", "thirty"},
+        {"fourty", "forty"},
+        {"fivety", "fifty"},
+        {"eightty", "eighty"}
+    };
+
 };
+
+
+
+/**
+ * @brief The Number class
+ *
+ * Base of translatable Number class
+ *
+ * Given an integer ranged from 0 - 999, it should be able
+ * to translate the integer into it textual form.
+ *
+ * This is virtual class, thus it has to be subclassed,
+ * and subclass has to override translate() method
+ * to support the language that the number will be translated into.
+ *
+ *
+ */
 
 class Number {
 public:
+    explicit Number() {
+        this->value = 0;
+    }
+
     explicit Number(const int integer) {
         this->value = integer;
     }
 
+    virtual string translate() = 0;
+
+    virtual Language* lang() = 0;
+
+protected:
+    int value;
+};
+
+
+/**
+ * @brief The EngNumber class
+ * A Number which translate its value into English word.
+ */
+class EngNumber : public Number {
+public:
+
+    explicit EngNumber() : Number()
+    {}
+
+    explicit EngNumber(const int integer) :
+    Number(integer) {}
+
     string translate() {
 
         if ( value == 0 )
-            return "";
+            return "zero";
+
+        // up to this point 0 still spelled
+        // past this point 0 is ignored
 
         if ( value <  100 ) {
             return dealWithTwoNumbers(value);
@@ -66,10 +158,23 @@ public:
         }
     }
 
+    Language* lang() {
+        return &conf;
+    }
+
+    void setValue(const int value) {
+        this->value = value;
+    }
+
+
+
+
 // utilities
 private:
+    Eng conf = Eng();
+
     string toBase(const int value) {
-        return Eng::base.at(value);
+        return conf.base().at(value);
     }
 
     string toTeen(const int value) {
@@ -81,9 +186,9 @@ private:
             output = toBase(lastDigit);
         }
 
-        output += Eng::O;
+        output += conf.O;
 
-        try { output = Eng::replacements.at(output); }
+        try { output = conf.replacements().at(output); }
         catch (out_of_range) {}
 
         return output;
@@ -94,9 +199,9 @@ private:
 
         // first digit
         firstDigit = value / 10;
-        string output = toBase(firstDigit) + Eng::OO;
+        string output = toBase(firstDigit) + conf.OO;
 
-        try { output = Eng::replacements.at(output); }
+        try { output = conf.replacements().at(output); }
         catch (out_of_range) {}
 
         // last digit
@@ -129,7 +234,7 @@ private:
 
     string dealWithThreeNumbers(int num) {
         const int firstDigit = num / 100;
-        string output = toBase(firstDigit) + " " + Eng::OOO;
+        string output = toBase(firstDigit) + " " + conf.OOO;
 
         const int theLastTwo = num % 100;
         string output2 = dealWithTwoNumbers(theLastTwo);
@@ -137,12 +242,26 @@ private:
         return output + ( output2.empty() ? "" : " and " + output2 );
     }
 
-
-private:
-    int value;
-
 };
 
+
+
+
+/**
+ * @brief The Speller class
+ *  It splits the number into triples,
+ *  turn each triple into Number object from which the textual form of particular number
+ *  could be retreived,
+ *  then form a complete textual form for each triple with their corresponding units respectively.
+ *
+ *  usage:
+ *  Create new instance of Speller with number to spell, as in:
+ *  Speller speller("1123");
+ *
+ *  The instance will be able to process() only if the number is valid
+ *  i.e only contains digit character nothing else.
+ *  the ability can be queried using ready() method.
+ */
 class Speller {
 public:
     explicit Speller(const string input) {
@@ -153,30 +272,53 @@ public:
         this->validate();
     }
 
+    /**
+     * @brief ready
+     * @return
+     *  Ask me prior to doing process()
+     * to make sure the work done on the right thing
+     */
     bool ready() {
         return isAbleToWork;
     }
 
+    /**
+     * @brief process
+     * @return
+     *
+     * order the Speller to do its hard work converting
+     * numbers into their textual form of their language
+     *
+     * don't forget to ask ready() before calling this function,
+     * for best result.
+     *
+     */
     string process(){
 
-        if (input == "0") return Eng::base.at(0);
+        if ( !ready() ) return "unable to proceed!";
 
         string textualForm;
 
         vector<string> triples = group();
 
 
+        EngNumber number;
+
         for (unsigned int i=0; i<triples.size(); ++i) {
-            unitStack.push( Eng::units.at(i) );
+
+            unitStack.push( number.lang()->units().at(i) );
+
         }
 
         for (unsigned int i=0; i<triples.size(); ++i ) {
 
             string triple = triples.at(i);
 
-            Number number( toNumber(triple) );
+            number.setValue( toNumber(triple) );
 
-            string translated = number.translate();
+
+            Number* base = &number;
+            string translated = base->translate();
 
             if ( !translated.empty() ) {
                 textualForm
@@ -196,12 +338,24 @@ public:
         return textualForm;
     }
 
+// utilities
 private:
-
+    /**
+     * @brief validate
+     * check the input and update ready() status
+     */
     void validate() {
         isAbleToWork = isValid() && input.length() < 13;
     }
 
+    /**
+     * @brief isValid
+     * @return
+     *
+     * return true if input contains exactly digit characters only
+     * return false otherwise
+     *
+     */
     bool isValid(){
         for (auto it = input.cbegin(); it!=input.cend(); ++it) {
             char c = *it;
@@ -216,6 +370,13 @@ private:
         return true;
     }
 
+    /**
+     * @brief toNumber
+     * @param num
+     * @return
+     *
+     * convert num char to its integer equivalent
+     */
     int toNumber(const string num) {
         if (isValid()) {
             try {
@@ -227,6 +388,13 @@ private:
         return -1;
     }
 
+    /**
+     * @brief group
+     * @return
+     *
+     * take 3 char, group them and add them into triples
+     * triples: vector of triple
+     */
     vector<string> group() {
         vector<string> triples;
 
@@ -254,10 +422,22 @@ private:
     }
 
 private:
+    /**
+     * @brief input
+     * string of digit char that will be translated
+     */
     string input;
 
+    /**
+     * @brief isAbleToWork
+     * mark of capability to translate
+     */
     bool isAbleToWork;
 
+    /**
+     * @brief unitStack
+     * collection of units of number in the language
+     */
     stack<string> unitStack;
 };
 
@@ -265,11 +445,10 @@ private:
 
 void printUsage() {
     cout
-            << "usage: NumberSpeller [N]" << endl
-            << "N: positive number from 0 to maximum of 999999999999" << endl
+            << "usage: NumberSpeller [n]" << endl
+            << "n: positive number from 0 to maximum of 999999999999" << endl
             << "example: NumberSpeller 2300" << endl;
 }
-
 
 int main(int argc, char* argv[])
 {
