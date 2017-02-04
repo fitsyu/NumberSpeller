@@ -431,7 +431,7 @@ private:
 class Speller {
 public:
     enum SpellingLanguage {
-        EN=1, ID
+        EN, ID
     };
 
 public:
