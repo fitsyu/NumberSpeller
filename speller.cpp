@@ -83,6 +83,9 @@ string Speller::process(){
     int idx = textualForm.find_last_of(", ");
     textualForm.replace(idx-1, 2, "");
 
+    // del unused pointer
+    delete number;
+
     // done
     return textualForm;
 }

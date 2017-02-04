@@ -43,6 +43,8 @@ public:
         catch (out_of_range) {}
     }
 
+    virtual ~Number() {}
+
 protected:
     int value;
 };
