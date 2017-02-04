@@ -11,14 +11,15 @@ using namespace std;
 
 #include "speller.h"
 
-// =========================================================================
-
+/**
+ * @brief printUsage
+ * print little help on how to use the program
+ */
 void printUsage() {
 
     string programName;
 
 #if (defined(__GNUC__) || defined(__GNUG__)) && !(defined(__clang__) || defined(__INTEL_COMPILER))
-
     programName = program_invocation_short_name;
 #else
     programName = "numspel";
@@ -36,7 +37,7 @@ int main(int argc, char* argv[])
     if ( argc == 2 ) {
         string input = argv[1];
 
-        // bussiness
+        // change to Speller::ID for Bahasa
         Speller robot(input, Speller::EN);
 
         if ( robot.ready() ) {
