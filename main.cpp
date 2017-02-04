@@ -665,7 +665,14 @@ private:
 
 void printUsage() {
 
-    const string programName = program_invocation_short_name;
+    string programName;
+
+#if (defined(__GNUC__) || defined(__GNUG__)) && !(defined(__clang__) || defined(__INTEL_COMPILER))
+
+    programName = program_invocation_short_name;
+#else
+    programName = "numspel";
+#endif
 
     cout
             << "usage: " << programName << " [n]" << endl
