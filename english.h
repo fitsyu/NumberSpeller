@@ -10,12 +10,31 @@
  */
 class English: public Language {
 public:
-    English();
+    /**
+     * @brief English
+     * Create English object
+     */
+    explicit English();
 
+    /**
+     * @brief base
+     * @return
+     * base numbers in English
+     */
     vector<string> base();
 
+    /**
+     * @brief units
+     * @return
+     * unit of numbers in English
+     */
     vector<string> units();
 
+    /**
+     * @brief replacements
+     * @return
+     * correction for the wrongly generated word by rule
+     */
     unordered_map<string, string> replacements();
 
     const string O     = "teen";
@@ -23,15 +42,12 @@ public:
     const string OOO   = "hundred";
 
 private:
-    // basic names of numbers
     vector<string> _base { "zero", "one", "two", "three", "four",
                           "five", "six", "seven", "eight", "nine" };
 
-    // units of numbers
     vector<string> _units { "", "thousand", "million", "billion" };
 
 
-    // also known as convention
     unordered_map<string, string> _replacements {
         // teens
         {"teen","ten"},

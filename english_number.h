@@ -5,7 +5,7 @@
 #include "number.h"
 
 /**
- * @brief The EngNumber class
+ * @brief The EnglishNumber class
  * A Number which translate its value into English word.
  */
 class EnglishNumber : public Number {

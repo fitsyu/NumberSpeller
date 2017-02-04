@@ -9,12 +9,31 @@
  */
 class Bahasa: public Language {
 public:
-    Bahasa();
+    /**
+     * @brief Bahasa
+     * Create Bahasa object
+     */
+    explicit Bahasa();
 
+    /**
+     * @brief base
+     * @return
+     * base numbers in Bahasa
+     */
     vector<string> base();
 
+    /**
+     * @brief units
+     * @return
+     * units of number in Bahasa
+     */
     vector<string> units();
 
+    /**
+     * @brief replacements
+     * @return
+     * correction for the wrongly generated word by rule
+     */
     unordered_map<string, string> replacements();
 
     const string O     = "belas";
@@ -22,15 +41,11 @@ public:
     const string OOO   = "ratus";
 
 private:
-    // basic names of numbers
     vector<string> _base { "nol", "satu", "dua", "tiga", "empat",
                           "lima", "enam", "tujuh", "delapan", "sembilan" };
 
-    // units of numbers
     vector<string> _units { "", "ribu", "juta", "milyar" };
 
-
-    // also known as convention
     unordered_map<string, string> _replacements {
         {" belas","sepuluh"},
         {"satu belas","sebelas"},

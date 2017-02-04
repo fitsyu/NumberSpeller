@@ -28,12 +28,34 @@ using namespace std;
  */
 class Language {
 public:
-    Language(){}
+    /**
+     * @brief Language
+     * create new instance of Language object
+     */
+    explicit Language(){}
 
+    /**
+     * @brief base
+     * @return
+     * how to spell base numbers in a language
+     * e.g: "zero" to "nine" for 0-9 in English
+     */
     virtual vector<string> base() = 0;
 
+    /**
+     * @brief units
+     * @return
+     * how to spell units of number in a language
+     * e.g: "thousand" in English
+     */
     virtual vector<string> units() = 0;
 
+    /**
+     * @brief replacements
+     * @return
+     * correction table for particular number
+     * e.g "oneteen" : "eleven" in English
+     */
     virtual unordered_map<string, string> replacements() = 0;
 };
 

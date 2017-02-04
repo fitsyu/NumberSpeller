@@ -11,6 +11,7 @@
 class BahasaNumber: public Number {
 public:
     explicit BahasaNumber();
+
     explicit BahasaNumber(const int integer);
 
     string translate();
@@ -22,6 +23,7 @@ private:
     string toBase(const int value);
 
     string toTeen(const int value);
+
     string toTens(int value);
 
     string dealWithTens(int num);
