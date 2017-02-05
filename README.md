@@ -34,7 +34,6 @@ Currently supported languages are:
 - Combines the translated triples into the final form
 
   > one million, two hundred and thirty-four thousand, five hundred and sixty-seven
-  > _by numspel 1234567_
 
 - Done
 
