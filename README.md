@@ -19,9 +19,9 @@ Currently supported languages are:
 
   1   -> one
 
-  234 -> two hundred thirty-four
+  234 -> two hundred and thirty-four
 
-  567 -> five hundred sixty-seven
+  567 -> five hundred and sixty-seven
   
 - Assigns each triple its unit name based on its position
 
@@ -33,7 +33,7 @@ Currently supported languages are:
   
 - Combines the translated triples into the final form
 
-  one million, two hundred thirty-four thousand, five hundred sixty-seven
+  one million, two hundred and thirty-four thousand, five hundred and sixty-seven
 
 - Done
 
