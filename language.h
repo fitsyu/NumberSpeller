@@ -9,7 +9,8 @@ using namespace std;
 
 /**
  * @brief The Language class
- * Base of all supported language
+ * Base of all supported language.
+ *
  * In order to support certain language into the system, one has to
  * provide:
  * - the basic names for basic number from 0 to 9

@@ -5,7 +5,7 @@
 #include "language.h"
 
 /**
- * @brief The Eng class
+ * @brief The English class
  * Example implementation of English language
  */
 class English: public Language {
