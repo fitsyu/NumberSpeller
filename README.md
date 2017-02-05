@@ -18,13 +18,17 @@ Currently supported languages are:
 - Translates each triple
 
   1   -> one
+
   234 -> two hundred thirty-four
+
   567 -> five hundred sixty-seven
   
 - Assigns each triple its unit name based on its position
 
   1   -> "million"
+
   234 -> "thousand"
+
   567 -> ""
   
 - Combines the translated triples into the final form
