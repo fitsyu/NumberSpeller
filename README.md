@@ -11,7 +11,7 @@ Currently supported languages are:
 
   e.g: 1234567
   
-- Splits your number into triples
+- Splits your number into triples starting from the rear
 
   i.e: 1234567 becomes 1, 234, 567
   
@@ -34,7 +34,7 @@ Currently supported languages are:
 - Combines the translated triples into the final form
 
   > one million, two hundred and thirty-four thousand, five hundred and sixty-seven
-  > - numspel 1234567
+  > _by numspel 1234567_
 
 - Done
 
