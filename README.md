@@ -33,7 +33,8 @@ Currently supported languages are:
   
 - Combines the translated triples into the final form
 
-  one million, two hundred and thirty-four thousand, five hundred and sixty-seven
+  > one million, two hundred and thirty-four thousand, five hundred and sixty-seven
+  > - numspel 1234567
 
 - Done
 
