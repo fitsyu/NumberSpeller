@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_number.html" title="The Number class. " alt="" coords="5,31,74,56"/>
+<area shape="rect" id="node2" href="$class_bahasa_number.html" title="The BahasaNumber class A Number which translate its value into Bahasa. " alt="" coords="122,5,236,31"/>
+<area shape="rect" id="node3" href="$class_english_number.html" title="The EnglishNumber class A Number which translate its value into English word. " alt="" coords="123,55,235,80"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_language.html" title="The Language class Base of all supported language. " alt="" coords="5,31,86,56"/>
+<area shape="rect" id="node2" href="$class_bahasa.html" title="The Bahasa class Example implementation of Bahasa Indonesia. " alt="" coords="134,5,201,31"/>
+<area shape="rect" id="node3" href="$class_english.html" title="The English class Example implementation of English language. " alt="" coords="135,55,200,80"/>
+</map>

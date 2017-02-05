@@ -1,0 +1,10 @@
+<map id="Speller::process" name="Speller::process">
+<area shape="rect" id="node2" href="$class_speller.html#a148ab90c4c3fb3c96d29b3f666187862" title="ready " alt="" coords="182,5,286,31"/>
+<area shape="rect" id="node3" href="$class_number.html#a58a2c791b28dd3ffa5ab71257a6f8bee" title="lang " alt="" coords="379,156,480,181"/>
+<area shape="rect" id="node4" href="$class_language.html#a53b29b8180601b16bd4fb9ada6c80afd" title="base " alt="" coords="175,107,292,132"/>
+<area shape="rect" id="node5" href="$class_language.html#a70c063848f9b5c724a4609b1a6a978b7" title="units " alt="" coords="176,156,292,181"/>
+<area shape="rect" id="node6" href="$class_number.html#aaac6fce515e30087b4613db0b132c083" title="setValue " alt="" coords="170,205,297,231"/>
+<area shape="rect" id="node7" href="$class_number.html#a608f15a5cd091ef65ccd972eaa89e351" title="translate " alt="" coords="170,255,298,280"/>
+<area shape="rect" id="node8" href="$class_number.html#ab583e693c9159368591d6120b25f9837" title="revise " alt="" coords="178,304,290,329"/>
+<area shape="rect" id="node9" href="$class_language.html#a23fb96c131438b6962af192b5d04b041" title="replacements " alt="" coords="346,304,514,329"/>
+</map>
