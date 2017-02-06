@@ -70,5 +70,5 @@ Currently supported languages are:
 
   See **English** class and **EnglishNumber** class to see how number in English is implemented
   
- # Source Code Documentation
-  [See here](Doc/HTML/index.html)
+# Source Code Documentation
+ [See here](doc/html/index.html)
