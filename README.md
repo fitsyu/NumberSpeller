@@ -3,7 +3,9 @@ A Robot that spells a number
 
 # Multiple language support
 Currently supported languages are:
+
 - English
+
 - Bahasa
 
 # How it works
@@ -39,7 +41,13 @@ Currently supported languages are:
 
 # How to add language to the system
   You need to subclass two things:
-  1. **Language** class
-  2. **Number** class
+  
+  1. **Language** class  
+  
+  2. **Number** class  
+  
+  
 
   See **English** class and **EnglishNumber** class to see how number in English is implemented
+  
+  [Downloads](downloads)
