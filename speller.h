@@ -92,6 +92,14 @@ private:
      */
     bool isValid();
 
+	/**
+	 * @brief isValid2
+	 * @return 
+	 * isValid version using regex
+	 * @note: only works with VS C++ Compiler
+	 */
+	bool isValid2();
+
     /**
      * @brief toNumber
      * @param num

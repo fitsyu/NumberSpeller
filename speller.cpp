@@ -3,6 +3,8 @@
 #include "english_number.h"
 #include "bahasa_number.h"
 
+#include <regex>
+
 Speller::Speller(const string input, const SpellingLanguage language) {
     this->input = input;
     this->language = language;
@@ -117,6 +119,11 @@ bool Speller::isValid(){
     return true;
 }
 
+
+bool Speller::isValid2() {
+	regex rx("[[:digit:]]+");
+	return regex_match(input, rx);
+}
 
 int Speller::toNumber(const string num) {
     if (isValid()) {
