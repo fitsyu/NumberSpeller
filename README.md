@@ -8,6 +8,26 @@ Currently supported languages are:
 
 - Bahasa
 
+# How to build
+- VS Studio 2015
+ 1. Download or clone this repository
+ 2. Launch VS2015
+ 3. Open Project/Solution
+ 4. Select NumberSpeller.sln file 
+ 5. Press Build Solution
+ 6. An executable named 'numspel' should be in Debug directory
+  
+
+- Qt Creator
+ 1. Download or clone this repository
+ 2. Launch Qt Creator
+ 3. Open the NumberSpeller.pro
+ 4. Press build button or CTRL+B
+ 5. An executable should be in the same location as project directory
+
+
+  
+
 # How it works
 - Given a number from 0 up to maximum 999,999,999,999
 
@@ -50,4 +70,5 @@ Currently supported languages are:
 
   See **English** class and **EnglishNumber** class to see how number in English is implemented
   
-  [Downloads](downloads)
+ # Source Code Documentation
+  [See here](Doc/HTML/index.html)
