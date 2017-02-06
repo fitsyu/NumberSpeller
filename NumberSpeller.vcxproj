@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EAA74ACD-D62A-4259-962A-2EBA9BB325F1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="bahasa.cpp" />
+    <ClCompile Include="bahasa_number.cpp" />
+    <ClCompile Include="english.cpp" />
+    <ClCompile Include="english_number.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="speller.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bahasa.h" />
+    <ClInclude Include="bahasa_number.h" />
+    <ClInclude Include="english.h" />
+    <ClInclude Include="english_number.h" />
+    <ClInclude Include="language.h" />
+    <ClInclude Include="number.h" />
+    <ClInclude Include="speller.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="doc\html\annotated.html" />
+    <None Include="doc\html\bahasa_8cpp_source.html" />
+    <None Include="doc\html\bahasa_8h_source.html" />
+    <None Include="doc\html\bahasa__number_8cpp_source.html" />
+    <None Include="doc\html\bahasa__number_8h_source.html" />
+    <None Include="doc\html\classes.html" />
+    <None Include="doc\html\class_bahasa-members.html" />
+    <None Include="doc\html\class_bahasa.html" />
+    <None Include="doc\html\class_bahasa_number-members.html" />
+    <None Include="doc\html\class_bahasa_number.html" />
+    <None Include="doc\html\class_english-members.html" />
+    <None Include="doc\html\class_english.html" />
+    <None Include="doc\html\class_english_number-members.html" />
+    <None Include="doc\html\class_english_number.html" />
+    <None Include="doc\html\class_language-members.html" />
+    <None Include="doc\html\class_language.html" />
+    <None Include="doc\html\class_number-members.html" />
+    <None Include="doc\html\class_number.html" />
+    <None Include="doc\html\class_speller-members.html" />
+    <None Include="doc\html\class_speller.html" />
+    <None Include="doc\html\english_8cpp_source.html" />
+    <None Include="doc\html\english_8h_source.html" />
+    <None Include="doc\html\english__number_8cpp_source.html" />
+    <None Include="doc\html\english__number_8h_source.html" />
+    <None Include="doc\html\files.html" />
+    <None Include="doc\html\functions.html" />
+    <None Include="doc\html\functions_func.html" />
+    <None Include="doc\html\functions_vars.html" />
+    <None Include="doc\html\graph_legend.html" />
+    <None Include="doc\html\hierarchy.html" />
+    <None Include="doc\html\index.html" />
+    <None Include="doc\html\inherits.html" />
+    <None Include="doc\html\language_8h_source.html" />
+    <None Include="doc\html\main_8cpp_source.html" />
+    <None Include="doc\html\number_8h_source.html" />
+    <None Include="doc\html\search\all_0.html" />
+    <None Include="doc\html\search\all_1.html" />
+    <None Include="doc\html\search\all_2.html" />
+    <None Include="doc\html\search\all_3.html" />
+    <None Include="doc\html\search\all_4.html" />
+    <None Include="doc\html\search\all_5.html" />
+    <None Include="doc\html\search\all_6.html" />
+    <None Include="doc\html\search\all_7.html" />
+    <None Include="doc\html\search\all_8.html" />
+    <None Include="doc\html\search\all_9.html" />
+    <None Include="doc\html\search\all_a.html" />
+    <None Include="doc\html\search\classes_0.html" />
+    <None Include="doc\html\search\classes_1.html" />
+    <None Include="doc\html\search\classes_2.html" />
+    <None Include="doc\html\search\classes_3.html" />
+    <None Include="doc\html\search\classes_4.html" />
+    <None Include="doc\html\search\functions_0.html" />
+    <None Include="doc\html\search\functions_1.html" />
+    <None Include="doc\html\search\functions_2.html" />
+    <None Include="doc\html\search\functions_3.html" />
+    <None Include="doc\html\search\functions_4.html" />
+    <None Include="doc\html\search\functions_5.html" />
+    <None Include="doc\html\search\functions_6.html" />
+    <None Include="doc\html\search\functions_7.html" />
+    <None Include="doc\html\search\functions_8.html" />
+    <None Include="doc\html\search\functions_9.html" />
+    <None Include="doc\html\search\nomatches.html" />
+    <None Include="doc\html\search\variables_0.html" />
+    <None Include="doc\html\speller_8cpp_source.html" />
+    <None Include="doc\html\speller_8h_source.html" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
