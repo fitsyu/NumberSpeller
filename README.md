@@ -1,5 +1,5 @@
 # Meet numspel
-A robot that spells a number
+the fast number speller program
 
 # Multiple language support
 Currently supported languages are:
