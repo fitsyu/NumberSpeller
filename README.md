@@ -13,18 +13,19 @@ Currently supported languages are:
 
   1. Download or clone this repository
   2. Launch VS2015
-  3. Open Project/Solution
+  3. Click File -> Open -> Project/Solution
   4. Select NumberSpeller.sln file 
-  5. Press Build/Build Solution
-  6. An executable named 'numspel' should be in Debug directory
+  5. Press Build/Build Solution or F7
+  6. An executable named 'numspel' should be in (x64 or x86)/Debug directory
   
 
 - Qt Creator
   1. Download or clone this repository
   2. Launch Qt Creator
-  3. Open the NumberSpeller.pro
-  4. Press build button or CTRL+B
-  5. An executable named 'numspel' should be in the same location as project directory
+  3. Open File/Project
+  4. Select NumberSpeller.pro file
+  5. Press build button or CTRL+B
+  6. An executable named 'numspel' should be in the same location as project directory
 
 
   
