@@ -16,7 +16,7 @@ Currently supported languages are:
   3. Click File -> Open -> Project/Solution
   4. Select NumberSpeller.sln file 
   5. Press Build/Build Solution or F7
-  6. An executable named 'numspel' should be in (x64 or x86)/Debug directory
+  6. An executable named 'numspel' should be in Debug directory (or x64/Debug directory if building for 64 bit target)
   
 
 - Qt Creator
